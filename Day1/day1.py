@@ -8,13 +8,8 @@ from sys import argv
 class Position:
     def __init__(self, x, y):
         self.facing = 'N'
-        self.x1 = 5
-        self.y1 = 5
         self.x = 0
         self.y = 0
-
-    def calc_trajectory(self):
-        pass
 
 
 def main():
