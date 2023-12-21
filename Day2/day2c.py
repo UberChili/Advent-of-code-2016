@@ -5,34 +5,38 @@ from sys import argv
 
 def main():
     if len(argv) != 2:
-        print("Usage: python day2.py input")
+        print("Usage: python day2c.py input")
         exit()
 
-    # numpad = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
-    numpad = [['1'], ['2', '3', '4'], ['5', '6', '7', '8', '9'], ['A', 'B', 'C'], ['D']]
+    numpad = [
+        ['0', '0', '1', '0', '0'],
+        ['0', '2', '3', '4', '0'],
+        ['5', '6', '7', '8', '9'],
+        ['0', 'A', 'B', 'C', '0'],
+        ['0', '0', 'D', '0', '0']
+    ]
 
     with open(argv[1], 'r') as fp:
         code = ""
         row = 2
         col = 0
+
         for steps_line in fp.readlines():
             steps_line.strip()
             for step in steps_line:
                 if step == 'U':
-                    if (0 <= (row - 1) < len(numpad)) and (0 <= (col - 1) < len(numpad[row - 1])):
+                    if (0 <= row - 1 < len(numpad)) and (numpad[row - 1][col] != '0'):
                         row -= 1
-                elif step == 'D':
-                    if (0 <= (row + 1) < len(numpad)) and (0 <= (col - 1) < len(numpad[row + 1])):
+                if step == 'D':
+                    if (0 <= row + 1 < len(numpad)) and (numpad[row + 1][col] != '0'):
                         row += 1
-                elif step == 'L':
-                    if 0 <= (col - 1) < len(numpad):
+                if step == 'L':
+                    if (0 <= col - 1 < len(numpad[row])) and (numpad[row][col - 1] != '0'):
                         col -= 1
-                elif step == 'R':
-                    if 0 <= (col + 1) < len(numpad):
+                if step == 'R':
+                    if (0 <= col + 1 < len(numpad[row])) and (numpad[row][col + 1] != '0'):
                         col += 1
-
             code += numpad[row][col]
-
     print(code)
 
 
