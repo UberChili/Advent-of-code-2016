@@ -19,10 +19,10 @@ def main():
             steps_line.strip()
             for step in steps_line:
                 if step == 'U':
-                    if 0 <= (row - 1) < len(numpad):
+                    if (0 <= (row - 1) < len(numpad)) and (0 <= (col - 1) < len(numpad[row - 1])):
                         row -= 1
                 elif step == 'D':
-                    if 0 <= (row + 1) < len(numpad):
+                    if (0 <= (row + 1) < len(numpad)) and (0 <= (col - 1) < len(numpad[row + 1])):
                         row += 1
                 elif step == 'L':
                     if 0 <= (col - 1) < len(numpad):
