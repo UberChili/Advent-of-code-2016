@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from collections import defaultdict
 import re
 from sys import argv
 
@@ -29,11 +30,25 @@ def main():
 
     triangles = [[int(num) for num in triangle] for triangle in triangles]
 
+    vertically = []
+    for n in triangles:
+        vertically.append(n[0])
+    for n in triangles:
+        vertically.append(n[1])
+    for n in triangles:
+        vertically.append(n[2])
+
+
+    sides = []
     counter = 0
-    for triangle in triangles:
-        curr_triangle = Triangle(triangle[0], triangle[1], triangle[2])
-        if curr_triangle.is_possible():
-            counter += 1
+    for side in vertically:
+        sides.append(side)
+        if len(sides) == 3:
+            curr_triangle = Triangle(sides[0], sides[1], sides[2])
+            if curr_triangle.is_possible():
+                counter += 1
+            sides.clear()
+
     print(counter)
 
 
