@@ -15,9 +15,18 @@ def get_id(line: str) -> int:
 def get_letters(line: str) -> list:
     letters = []
     for i in line:
-        if i != '-' and i.isalpha:
+        if i.isdigit():
+            break
+        elif i != '-' and i.isalpha:
             letters.append(i)
     return letters
+
+
+def get_counts(letters: list, checksum: str) -> map:
+    counts = {}
+    for i in checksum:
+        counts[i] = letters.count(i)
+    return counts
 
 
 def main():
@@ -27,8 +36,14 @@ def main():
     with open(argv[1], 'r') as fp:
         names = [name.strip() for name in fp.readlines()]
 
+    # for name in names:
+    #     print(get_letters(name), get_id(name), get_checksum(name))
+
     for name in names:
-        print(get_letters(name), get_id(name), get_checksum(name))
+        counts = get_counts(get_letters(name), get_checksum(name))
+        for i in counts:
+            print(f"{i}: {counts[i]} ", end="")
+
 
 if __name__ == "__main__":
     main()
