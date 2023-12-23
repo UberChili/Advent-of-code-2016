@@ -15,10 +15,10 @@ def get_id(line: str) -> int:
 def get_letters(line: str) -> list:
     letters = []
     for i in line:
-        if i.isdigit():
-            break
-        elif i != '-' and i.isalpha:
+        if i.isalpha():
             letters.append(i)
+        elif i.isdigit():
+            break
     return letters
 
 
@@ -28,6 +28,12 @@ def get_counts(letters: list, checksum: str) -> map:
         counts[i] = letters.count(i)
     return counts
 
+
+def get_occurrences(letters: list) -> map:
+    counts = {}
+    for letter in letters:
+        counts[letter] = letters.count(letter)
+    return counts
 
 def main():
     if len(argv) < 2:
@@ -39,10 +45,18 @@ def main():
     # for name in names:
     #     print(get_letters(name), get_id(name), get_checksum(name))
 
+    letter_occurrences = {}
     for name in names:
-        counts = get_counts(get_letters(name), get_checksum(name))
-        for i in counts:
-            print(f"{i}: {counts[i]} ", end="")
+        # print(get_letters(name))
+        # print(get_letters(name), get_id(name), get_checksum(name))
+        letter_occurrences = get_occurrences(get_letters(name))
+        for i in letter_occurrences:
+            print(f"{i}: {letter_occurrences[i]}, ", end="")
+        print("\n")
+        # counts = get_counts(get_letters(name), get_checksum(name))
+        # for i in counts:
+        #     print(f"{i}: {counts[i]} ", end="")
+        # print("\n")
 
 
 if __name__ == "__main__":
