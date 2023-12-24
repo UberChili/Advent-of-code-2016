@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from collections import OrderedDict
 import re
 from sys import argv
 
@@ -22,18 +23,30 @@ def get_letters(line: str) -> list:
     return letters
 
 
-def get_counts(letters: list, checksum: str) -> map:
-    counts = {}
-    for i in checksum:
-        counts[i] = letters.count(i)
-    return counts
+# def get_counts(letters: list) -> list:
+#     counts = {}
+#     for i in letters:
+#         if i in counts:
+#             pass
+#         else:
+#             counts[i] = letters.count(i)
+#     return counts
 
 
 def get_occurrences(letters: list) -> map:
-    counts = {}
+    counts = []
+    visited = []
     for letter in letters:
-        counts[letter] = letters.count(letter)
+        if letter in visited:
+            pass
+        else:
+            counts.append({"letter": letter, "count": letters.count(letter)})
+            visited.append(letter)
     return counts
+
+def check_if_real(letters: list, occurrences: map, checksum: str) -> list:
+    return sorted(letters, key=operator.itemgetter(1, 2))
+
 
 def main():
     if len(argv) < 2:
@@ -47,12 +60,13 @@ def main():
 
     letter_occurrences = {}
     for name in names:
-        # print(get_letters(name))
+        print(get_letters(name))
+        print(get_occurrences(get_letters(name)))
         # print(get_letters(name), get_id(name), get_checksum(name))
-        letter_occurrences = get_occurrences(get_letters(name))
-        for i in letter_occurrences:
-            print(f"{i}: {letter_occurrences[i]}, ", end="")
-        print("\n")
+        # letter_occurrences = get_occurrences(get_letters(name))
+        # for i in letter_occurrences:
+        #     print(f"{i}: {letter_occurrences[i]}, ", end="")
+        # print("\n")
         # counts = get_counts(get_letters(name), get_checksum(name))
         # for i in counts:
         #     print(f"{i}: {counts[i]} ", end="")
