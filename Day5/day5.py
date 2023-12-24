@@ -17,14 +17,20 @@ def main():
     puzz_input = "ugkcyxxp"
     password = ""
 
-    # h = hashlib.new('md5')
-    # h.update(b"abc3231929")
-    # print(h.hexdigest())
+    # print(hashlib.md5(example_input.encode()).hexdigest())
 
-    h = hashlib.new('md5')
-    h.update(b"abc3231929")
-    print(h.hexdigest())
+    integer = 0
+    while True:
+        test = puzz_input + str(integer)
+        hash = hashlib.md5(test.encode()).hexdigest()
+        integer += 1
 
+        if starts_with_zeros(hash):
+            password += get_next(hash)
+        elif len(password) == 8:
+            break
+
+    print(password)
 
 
 if __name__ == "__main__":
