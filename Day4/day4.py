@@ -43,11 +43,7 @@ def get_occurrences(letters: list) -> map:
             counts.append({"letter": letter, "count": letters.count(letter)})
             visited.append(letter)
     # return counts
-    return sorted(counts, key=lambda x: (x["letter"], x["count"]))
-
-
-def check_if_real(letters: list, occurrences: map, checksum: str) -> list:
-    return sorted(letters, key=operator.itemgetter(1, 2))
+    return sorted(counts, key=lambda x: (x["count"], x["letter"]), reverse=True)
 
 
 def main():
