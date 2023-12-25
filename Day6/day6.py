@@ -18,8 +18,7 @@ def main():
 
     message = ""
     for i in columns:
-        # print(max(columns[i], key=columns[i].count))
-        message += max(columns[i], key=columns[i].count)
+        message += min(columns[i], key=columns[i].count)
 
     print(message)
 
