@@ -12,6 +12,8 @@ def get_rest(line:str) -> str:
 def get_hypernet(line: str) -> str:
     return re.findall(r'(\[[a-z]+\])', line)[0].strip("[]")
 
+# This method to check for abba on the outside of the hypernet is wrong.
+# FIX THIS
 def has_abba(line:str) -> bool:
     for i in range(2, len(line), 2):
         first = line[i - 2]
@@ -19,6 +21,12 @@ def has_abba(line:str) -> bool:
         # if line[i] == second and line[i + 1] == first:
         if line[i] == second and line[i + 1] == first and first != second and line[i] != line[i + 1]:
             return True
+    return False
+
+# Hope this works
+def check_if_valid(lines: list) -> bool:
+    if has_abba(lines[0]) or has_abba(lines[1]):
+        return True
     return False
 
 def main():
@@ -31,14 +39,11 @@ def main():
     counter = 0
     for line in lines:
         hypernet = get_hypernet(line)
-        if has_abba(hypernet):
-            continue
-        else:
-            for substring in get_rest(line):
-                if has_abba(substring):
-                    counter += 1
-                    continue
-
+        if not has_abba(hypernet):
+            rest = get_rest(line)
+            if check_if_valid(rest):
+                print(f"line {line} with hypernet {hypernet} is valid")
+                counter += 1
     print(counter)
 
 if __name__ == "__main__":
