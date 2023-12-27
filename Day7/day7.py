@@ -39,11 +39,8 @@ def main():
     counter = 0
     for line in lines:
         hypernet = get_hypernet(line)
-        if not has_abba(hypernet):
-            rest = get_rest(line)
-            if check_if_valid(rest):
-                print(f"line {line} with hypernet {hypernet} is valid")
-                counter += 1
+        if has_abba(hypernet):
+            print(f"line {line} has abba on hypernet {hypernet}")
     print(counter)
 
 if __name__ == "__main__":
