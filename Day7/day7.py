@@ -4,15 +4,15 @@ from sys import argv
 import re
 
 
-def get_rest(line:str) -> str:
+def get_rest(line:str) -> tuple:
     hyper = re.findall(r'(\[[a-z]+\])', line)[0]
     new_line = line.replace(hyper, "|")
-    return (new_line.split("|"))
+    return tuple(new_line.split("|"))
 
 def get_hypernet(line: str) -> str:
     return re.findall(r'(\[[a-z]+\])', line)[0].strip("[]")
 
-# This method to check for abba on the outside of the hypernet is wrong.
+# This method to check for abba inside or outside of the hypernet is wrong
 # FIX THIS
 def has_abba(line:str) -> bool:
     for i in range(2, len(line), 2):
@@ -41,6 +41,10 @@ def main():
         hypernet = get_hypernet(line)
         if has_abba(hypernet):
             print(f"line {line} has abba on hypernet {hypernet}")
+        else:
+            what_is_this = get_rest(line)
+            print(what_is_this)
+
     print(counter)
 
 if __name__ == "__main__":
