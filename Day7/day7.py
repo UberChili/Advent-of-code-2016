@@ -21,11 +21,12 @@ def has_abba(line:str) -> bool:
         second = line[i + 1]
         third = line[i + 2]
         fourth = line[i + 3]
-        if (second == third) and (first != fourth):
+        if (second == third) and (first == fourth):
             return True
-        else:
-            i += 1
     return False
+    #     if (second == third) and (first != second) and (third != fourth):
+    #         return True
+    # return False
 
     # for i in range(2, len(line), 2):
     #     first = line[i - 2]
@@ -54,8 +55,10 @@ def main():
         if has_abba(hypernet):
             print(f"line {line} has abba on hypernet {hypernet}")
         else:
-            what_is_this = get_rest(line)
-            print(what_is_this)
+            rest = get_rest(line)
+            # print(what_is_this)
+            if has_abba(rest[0]) and has_abba(rest[1]):
+                counter += 1
 
     print(counter)
 
