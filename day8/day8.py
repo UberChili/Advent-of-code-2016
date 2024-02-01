@@ -8,17 +8,8 @@ import sys
 
 
 def main():
-    height = 3
-    width = 7
-
-    # screen = [['.' for i in range(width)] for j in range(height)]
-    # [print(row) for row in screen]
-    # print(screen)
-    # draw_screen(screen)
-
     screen = np.chararray((6, 50), unicode=True)
     screen[:] = '.'
-    # draw_screen(screen)
 
     if len(sys.argv) < 2:
         sys.exit("Bad cmdline arguments")
@@ -26,7 +17,6 @@ def main():
     with open(sys.argv[1]) as fp:
         lines = [line.strip().split(' ') for line in fp.readlines()]
 
-    # print("/")
     for line in lines:
         if line[0] == "rect":
             add_rect(line[1], screen)
@@ -40,14 +30,12 @@ def main():
 def calc_leds(screen):
     return np.count_nonzero(screen == '#')
 
+
 def rotate(inst, screen):
     if 'dir' not in inst:
         sys.exit("Error, not a dict passed to rotate")
 
-    # print(inst)
     if inst['dir'] == 'x':
-        # screen[:, 0] = screen[:, 0]
-        # screen[:, inst['n']]
         qu = deque(screen[:, inst['n']])
         qu.rotate(inst['times'])
         screen[:, inst['n']] = list(qu)
